@@ -20,6 +20,10 @@ class Fluent::Plugin::WebHDFSOutput < Fluent::Plugin::Output
   config_param :namenode, :string, default: nil # host:port
   desc 'Standby namenode for Namenode HA (host:port)'
   config_param :standby_namenode, :string, default: nil # host:port
+  desc 'basic_name (baisc authorization name)'
+  config_param :basic_name, :string, default: nil 
+  desc 'basic_password (baisc authorization password)'
+  config_param :basic_password, :string, default: nil 
 
   desc 'Ignore errors on start up'
   config_param :ignore_start_check_error, :bool, default: false
@@ -215,7 +219,7 @@ class Fluent::Plugin::WebHDFSOutput < Fluent::Plugin::Output
   end
 
   def prepare_client(host, port, username)
-    client = WebHDFS::Client.new(host, port, username, nil, nil, nil, {}, @renew_kerberos_delegation_token_interval_hour)
+    client = WebHDFS::Client.new(host, port, username, nil, nil, nil, {}, @renew_kerberos_delegation_token_interval_hour, @basic_name, @basic_password)
     if @httpfs
       client.httpfs_mode = true
     end
