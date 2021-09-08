@@ -34,7 +34,7 @@ class Fluent::Plugin::WebHDFSOutput < Fluent::Plugin::Output
   config_param :username, :string, default: nil
 
   desc 'Store data over HttpFs instead of WebHDFS'
-  config_param :httpfs, :bool, default: false
+  config_param :httpfs, :bool, default: true
 
   desc 'Number of seconds to wait for the connection to open'
   config_param :open_timeout, :integer, default: 30 # from ruby net/http default
